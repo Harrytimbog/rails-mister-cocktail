@@ -7,8 +7,11 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 puts 'Creating cocktails'
 
-Cocktail.create(name: 'lemon')
-Cocktail.create(name: 'ice')
-Cocktail.create(name: 'mint leaves')
+Cocktail.create(name: 'lemon flavor')
+Cocktail.create(name: 'ice flavor')
+Cocktail.create(name: 'mint leaves flavor')
+Ingredient.create(name: "lemon")
+Ingredient.create(name: "ice")
+Ingredient.create(name: "mint leaves")
 
 puts 'Seed complete'
