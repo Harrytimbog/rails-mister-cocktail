@@ -1,14 +1,9 @@
 Rails.application.routes.draw do
-  get 'doses/new'
-  post 'doses/create'
-  get 'doses/destroy'
-  get 'cocktails/index'
-  get 'cocktails/show'
-  get 'cocktails/new'
-  post 'cocktails/create'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :cocktails, only: %i[index show new create] do
-    resources :doses, only: %i[new create]
+  root to: "cocktails#index"
+  resources :cocktails, only: [:index, :show, :new, :create] do
+    resources :doses, only: [:new, :create]
+    resources :reviews, only: [:new, :create]
   end
   resources :doses, only: [:destroy]
 end

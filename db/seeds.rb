@@ -5,13 +5,31 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-puts 'Creating cocktails'
 
-Cocktail.create(name: 'lemon flavor')
-Cocktail.create(name: 'ice flavor')
-Cocktail.create(name: 'mint leaves flavor')
-Ingredient.create(name: "lemon")
-Ingredient.create(name: "ice")
-Ingredient.create(name: "mint leaves")
 
-puts 'Seed complete'
+#puts 'Creating cocktails'
+
+#Cocktail.create(name: 'lemon flavor')
+#Cocktail.create(name: 'ice flavor')
+#Cocktail.create(name: 'mint leaves flavor')
+#Ingredient.create(name: "lemon")
+#Ingredient.create(name: "ice")
+#Ingredient.create(name: "mint leaves")
+
+#puts 'Seed complete'
+
+require 'open-uri'
+
+puts "Destroy ingredients"
+Ingredient.destroy_all if Rails.env.development?
+
+puts "Destroy Cocktails"
+Cocktail.destroy_all if Rails.env.development?
+
+puts "Create ingredients"
+url = "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
+ingredients = JSON.parse(open(url).read)
+ingredients["drinks"].each do |ingredient|
+  i = Ingredient.create(name: ingredient["strIngredient1"])
+  puts "create #{i.name}"
+end
